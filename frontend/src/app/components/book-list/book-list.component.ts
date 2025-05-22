@@ -74,7 +74,6 @@ export class BookListComponent {
           this.loadBooks();
           this.closeModal();
           this.showSuccess('Book updated successfully!');
-          console.log('Book updated successfully');
         },
         error: (error) => {
           this.showError('Failed to update book. Please try again.');
@@ -87,7 +86,6 @@ export class BookListComponent {
           this.loadBooks();
           this.closeModal();
           this.showSuccess('Book added successfully!');
-          console.log('Book added successfully:', response);
         },
         error: (error) => {
           this.showError('Failed to add book. Please try again.');
