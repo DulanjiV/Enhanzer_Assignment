@@ -17,16 +17,16 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBook(BookDto bookDto)
+        public IActionResult CreateBook(Book book)
         {
             try
             {
-                _bookService.CreateBook(bookDto);
-                return Ok();
+                _bookService.CreateBook(book);
+                return Ok(new { message = "Book created successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
@@ -40,7 +40,7 @@ namespace backend.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
@@ -52,33 +52,33 @@ namespace backend.Controllers
                 var book = _bookService.GetBookById(id);
                 if (book == null)
                 {
-                    return NotFound();
+                    return NotFound(new { error = "Book not found" });
                 }
                 return Ok(book);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutBook(int id, BookDto bookDto)
+        public IActionResult PutBook(int id, Book book)
         {
             try
             {
                 var existingBook = _bookService.GetBookById(id);
                 if (existingBook == null)
                 {
-                    return NotFound();
+                    return NotFound(new { error = "Book not found" });
                 }
 
-                _bookService.UpdateBook(id, bookDto);
-                return Ok();
+                _bookService.UpdateBook(id, book);
+                return Ok(new { message = "Book updated successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
@@ -90,15 +90,15 @@ namespace backend.Controllers
                 var existingBook = _bookService.GetBookById(id);
                 if (existingBook == null)
                 {
-                    return NotFound();
+                    return NotFound(new { error = "Book not found" });
                 }
 
                 _bookService.DeleteBook(id);
-                return Ok();
+                return Ok(new { message = "Book deleted successfully" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
     }
